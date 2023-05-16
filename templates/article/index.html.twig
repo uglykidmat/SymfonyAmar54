@@ -1,0 +1,24 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ '/home/ugly/Documents/WebForce3/PHP-Symfony/SymfonyAmar54/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/home/ugly/Documents/WebForce3/PHP-Symfony/SymfonyAmar54/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
+    </ul>
+</div>
+
+
+<div class="container">
+    {# Actual display with loop #}
+    {# {% include "article/card.article.html.twig" %} #}
+     {% block articlecard %}{% endblock %}
+</div>
+{% endblock %}

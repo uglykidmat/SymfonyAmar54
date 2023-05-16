@@ -1,0 +1,21 @@
+{# {% extends 'article/index.html.twig' %}  #}
+
+{% block articlecard %}
+    
+    <div class="card mb-3 text-center col-4">
+        <h3 class="card-header">{{article[0]}}</h3>
+        <div style="height:200px">
+            <img class="mx-auto mt-2" width="200px" src="{{article[3]}}" alt="Angular framework">
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{article[1]}}</p>
+        </div>
+        <div class="card-body">
+            <button href="#" type="button" class="btn btn-primary">En savoir plus</button>
+        </div>
+        <div class="card-footer text-muted">
+            {{ random(1, 30) }} days ago by {{article[2]}}
+        </div>
+    </div>
+
+{% endblock %}
