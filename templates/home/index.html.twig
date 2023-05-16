@@ -10,9 +10,11 @@
     {% else %}
         <button class="logbtn" type ="submit">Connexion</button>
     {% endif %}
-
+    <br>
     <h2>Vidyo GAEMZ</h2>
     <h3>Il y a actuellement X jeux indexés</h3>
+    <br>
+
     <ul>
     {% for game,nbplayers in games %}
         {% if nbplayers > 1 %}
@@ -24,6 +26,10 @@
 
     {% set item = ["fifi","fafa","fofo"] %}
         <p>{{ item[1] }}</p>
+            
+
+    <br><br>
+    <p class="text-primary">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic, corrupti. </p>
 
     </ul>
     {# <a href="{{path("articles")}}">Voir la page des articles</a> #}
