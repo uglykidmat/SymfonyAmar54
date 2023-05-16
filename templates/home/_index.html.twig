@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello{% endblock %}
+
+{% block body %}
+    <h1>Helloes</h1>
+    
+    {% if user.isConnected == false %}
+        <button class="logbtn" type ="submit">Déconnexion</button>
+    {% else %}
+        <button class="logbtn" type ="submit">Connexion</button>
+    {% endif %}
+
+    <h2>Vidyo GAEMZ</h2>
+    <h3>Il y a actuellement X jeux indexés</h3>
+    <ul>
+    {% for game,nbplayers in games %}
+        {% if nbplayers > 1 %}
+        <li>{{ loop.index }} - <b>{{ game }}</b>, se joue jusqu'à <b>{{ nbplayers }}</b>  joueurs !</li>
+        {% else %}
+        <li>{{ loop.index + 1 }} - <b>{{ game | upper }}</b>, se joue à <b>{{ nbplayers }}</b> joueur !</li>
+        {% endif %}
+    {% endfor %}
+
+    {% set item = ["fifi","fafa","fofo"] %}
+        <p>{{ item[1] }}</p>
+
+    </ul>
+{% endblock %}
