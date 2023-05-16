@@ -1,15 +1,15 @@
 {% set testadminuser = {
-    "firstname" : "David",
-    "lastname" : "Davidson",
+    "firstname" : "Admin",
+    "lastname" : "Adminsson",
     "role" : "admin",
-    "isConnected" : true
+    "isConnected" : false
 } %}
 
 {% set testnormaluser = {
     "firstname" : "User",
     "lastname" : "Userson",
     "role" : "user",
-    "isConnected" : false
+    "isConnected" : true
 } %}
 
 <header>
@@ -37,8 +37,6 @@
                         {% elseif testadminuser.isConnected %}
                             {{testadminuser.firstname}} {{testadminuser.lastname}}
                         {% endif %}
-                        
-                    
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
