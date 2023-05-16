@@ -1,30 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends 'partials/base.html.twig' %}
 
-{% block title %}Hello{% endblock %}
+{% block title %}Index !{% endblock %}
 
 {% block body %}
-    <h1>Helloes</h1>
-    
-    {% if user.isConnected == false %}
-        <button class="logbtn" type ="submit">Déconnexion</button>
-    {% else %}
-        <button class="logbtn" type ="submit">Connexion</button>
-    {% endif %}
+<div class="container">
+    <div class="card mb-3 mt-3 pb-3 text-center">
+        <h1 class="card-header">Bienvenue sur Yescode ! </h1>
+        <div class="card-body">
+          <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam.</h5>
+        </div>
 
-    <h2>Vidyo GAEMZ</h2>
-    <h3>Il y a actuellement X jeux indexés</h3>
-    <ul>
-    {% for game,nbplayers in games %}
-        {% if nbplayers > 1 %}
-        <li>{{ loop.index }} - <b>{{ game }}</b>, se joue jusqu'à <b>{{ nbplayers }}</b>  joueurs !</li>
-        {% else %}
-        <li>{{ loop.index + 1 }} - <b>{{ game | upper }}</b>, se joue à <b>{{ nbplayers }}</b> joueur !</li>
-        {% endif %}
+        <div class="card-body">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quos aliquid numquam vitae omnis, illum quis debitis laudantium vel enim?</p>
+        </div>
+        <div>
+            <a class="btn btn-primary" href="{{path("app_article")}}">Voir les actus !</a>
+        </div>
+      </div>
+</div>
+
+{# Variables to display #}
+{# /!\ peut-être mieux en objet ? #}
+<div class="container d-flex gap-2 align-content-between" id="cards-container">
+    {% set article1 = ["article-angular","Angular is a TypeScript-based, free and open-source web application framework led by the Angular Team at Google and by a community of individuals and corporations.","Johnny Dillinger","https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/200px-Angular_full_color_logo.svg.png"] %}
+    {% set article2 = ["article-laravel","Laravel is a TypeScript-based, free and open-source web application framework led by the Laravel Team at Google and by a community of individuals and corporations.","Beth McCormick","https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/240px-Laravel.svg.png"] %}
+    {% set article3 = ["article-symfony","Symfony is a TypeScript-based, free and open-source web application framework led by the Symfony Team at Google and by a community of individuals and corporations.","Eric Flatstein","https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Symfony2.svg/1920px-Symfony2.svg.png"] %}
+
+    {% set articles = [article1,article2,article3] %}
+ {# Actual display with loop #}
+    {% for article in articles %}
+        {% include "article/card.article.html.twig" %}
     {% endfor %}
-
-    {% set item = ["fifi","fafa","fofo"] %}
-        <p>{{ item[1] }}</p>
-
-    </ul>
-    {# <a href="{{path("articles")}}">Voir la page des articles</a> #}
+   
+</div>
 {% endblock %}
