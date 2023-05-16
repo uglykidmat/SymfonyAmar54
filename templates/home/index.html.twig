@@ -4,44 +4,33 @@
 
 {% block body %}
 <div class="container">
-    <div class="card mb-3">
-        <h1 class="card-header">Bienvenue ! </h1>
+    <div class="card mb-3 mt-3 pb-3 text-center">
+        <h1 class="card-header">Bienvenue sur Yescode ! </h1>
         <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+          <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam.</h5>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-          <rect width="100%" height="100%" fill="#868e96"></rect>
-          <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-        </svg>
+
         <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quos aliquid numquam vitae omnis, illum quis debitis laudantium vel enim?</p>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-        <div class="card-footer text-muted">
-          2 days ago
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Card title</h4>
-          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+        <div>
+            <a class="btn btn-primary" href="{{path("app_article")}}">Voir les actus !</a>
         </div>
       </div>
 </div>
 
-<div class="container">
-    
+{# Variables to display #}
+{# /!\ peut-être mieux en objet ? #}
+<div class="container d-flex gap-2 align-content-between" id="cards-container">
+    {% set article1 = ["article-angular","Angular is a TypeScript-based, free and open-source web application framework led by the Angular Team at Google and by a community of individuals and corporations.","Johnny Dillinger","https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/200px-Angular_full_color_logo.svg.png"] %}
+    {% set article2 = ["article-laravel","Laravel is a TypeScript-based, free and open-source web application framework led by the Laravel Team at Google and by a community of individuals and corporations.","Beth McCormick","https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/240px-Laravel.svg.png"] %}
+    {% set article3 = ["article-symfony","Symfony is a TypeScript-based, free and open-source web application framework led by the Symfony Team at Google and by a community of individuals and corporations.","Eric Flatstein","https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Symfony2.svg/1920px-Symfony2.svg.png"] %}
+
+    {% set articles = [article1,article2,article3] %}
+ {# Actual display with loop #}
+    {% for article in articles %}
+        {% include "article/card.article.html.twig" %}
+    {% endfor %}
+   
 </div>
 {% endblock %}
