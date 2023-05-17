@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Fruit;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use stdClass;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(): Response
+    public function index(EntityManagerInterface $manager): Response
     {
         $book = new stdClass();
         $book->author = "Stewie McGriffin";
@@ -22,6 +25,14 @@ class HomeController extends AbstractController
         $user->isConnected = true;
 
         $games = ["Noita" => 8,"Sonic 3" => 2, "Space Citizen Kane Skylines" => 1];
+
+        $mango = new Fruit();
+        $mango->setName("mango");
+        $mango->setColour("orangetored");
+
+        $manager->persist($mango);
+        $manager->flush();
+
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
