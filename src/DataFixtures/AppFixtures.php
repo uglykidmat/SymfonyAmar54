@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
             $image = $faker->imageUrl();
             $intro = $faker->paragraph(2);
             $content = '<p>'.implode('</p><p>', $faker->paragraphs(5)).'</p>';
-            $createdAt = $faker->dateTimeBetween('-2 months');
+            // $createdAt = $faker->dateTimeBetween('-2 months');
             // $slug = $slugify->slugify($title.time()."-".hash("sha1",$intro));
 
             $article->setTitle($title);
@@ -34,7 +34,7 @@ class AppFixtures extends Fixture
             $article->initSlug();
 
             //$articledate = new DateTimeImmutable();
-            $article->setCreatedAt($createdAt);
+            // $article->setCreatedAt($createdAt);
 
             $manager->persist($article);
         }
