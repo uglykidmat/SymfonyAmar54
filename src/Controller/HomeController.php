@@ -18,6 +18,9 @@ class HomeController extends AbstractController
         $title = "ya ya oléo ASD123 CAP..I#Iö";
         dump($slugify->slugify($title));
 
+        $article = $repo->findOneById(121);
+        dump($article);
+
         return $this->render('home/index.html.twig', [
             "articles" => $repo->findLastArticles(3)
         ]);

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +27,9 @@ class Article
 
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $url_slug = null;
 
     public function getId(): ?int
     {
@@ -90,6 +92,18 @@ class Article
     public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUrlSlug(): ?string
+    {
+        return $this->url_slug;
+    }
+
+    public function setUrlSlug(string $url_slug): self
+    {
+        $this->url_slug = $url_slug;
 
         return $this;
     }
