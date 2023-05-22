@@ -1,4 +1,5 @@
 {% extends 'partials/base.html.twig' %}
+{# {% include "article/index.html.twig" %} #}
 
 {% block title %}Index !{% endblock %}
 
@@ -7,30 +8,37 @@
     <div class="card mb-3 mt-3 pb-3 text-center">
         <h1 class="card-header">Bienvenue sur Yescode ! </h1>
         <div class="card-body">
-          <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam.</h5>
+            <h5 class="card-title">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam.</h5>
         </div>
 
         <div class="card-body">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quos aliquid numquam vitae omnis, illum quis debitis laudantium vel enim?</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quos aliquid numquam vitae omnis, illum
+                quis debitis laudantium vel enim?</p>
         </div>
         <div>
-            <a class="btn btn-primary" href="{{path("app_article")}}">Voir les actus !</a>
+            <a class="btn btn-primary" href="{{path("articles_index")}}">Voir les actus !</a>
         </div>
-      </div>
+    </div>
 </div>
 
 {# Variables to display #}
 {# /!\ peut-être mieux en objet ? #}
-<div class="container d-flex gap-2 align-content-between" id="cards-container">
-    {% set article1 = ["article-angular","Angular is a TypeScript-based, free and open-source web application framework led by the Angular Team at Google and by a community of individuals and corporations.","Johnny Dillinger","https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/200px-Angular_full_color_logo.svg.png"] %}
-    {% set article2 = ["article-laravel","Laravel is a TypeScript-based, free and open-source web application framework led by the Laravel Team at Google and by a community of individuals and corporations.","Beth McCormick","https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/240px-Laravel.svg.png"] %}
-    {% set article3 = ["article-symfony","Symfony is a TypeScript-based, free and open-source web application framework led by the Symfony Team at Google and by a community of individuals and corporations.","Eric Flatstein","https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Symfony2.svg/1920px-Symfony2.svg.png"] %}
+<div class="d-flex gap-2 align-content-between" id="cards-container">
+    {% set symfony = {"title": "symfony", "intro": "Symfony est un framework PHP complet", "createdAt":date(),
+    "image":"https://neo7.fr/wp-content/uploads/2018/01/symfony-logo.png"} %}
 
-    {% set articles = [article1,article2,article3] %}
- {# Actual display with loop #}
+    {% set angular = {"title": "angular", "intro": "Angular le framework de Google", "createdAt":date(),
+    "image":"https://angular.io/assets/images/logos/angular/angular.svg" }%}
+
+    {% set laravel = {"title": "laravel", "intro": "Laravel est un framework PHP aussi", "createdAt":date() ,
+    "image":"https://jf-blog.fr/wp-content/uploads/2018/07/laravel-logo.png"} %}
+
+    {% set articles = {'angular':angular, 'symfony':symfony,'laravel':laravel} %}
+    {# Actual display with loop #}
+
     {% for article in articles %}
-        {% include "article/card.article.html.twig" %}
+    {% include "partials/card.article.html.twig" %}
     {% endfor %}
-   
+
 </div>
 {% endblock %}
