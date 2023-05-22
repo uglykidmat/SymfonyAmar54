@@ -29,7 +29,7 @@
     {% set laravel = {"title": "laravel", "intro": "Laravel est un framework PHP aussi", "createdAt":date() ,"image":"https://jf-blog.fr/wp-content/uploads/2018/07/laravel-logo.png"} %}
     {% set articles = {'angular':angular, 'symfony':symfony,'laravel':laravel} %} #}
     {# Actual display with loop #}
-
+    
     {% for article in articles %}
     {% include "partials/card.article.html.twig" %}
     {% endfor %}
