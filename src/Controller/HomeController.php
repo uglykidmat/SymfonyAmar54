@@ -6,9 +6,6 @@ use App\Repository\ArticleRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
-
-
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
@@ -18,7 +15,7 @@ class HomeController extends AbstractController
         $title = "ya ya oléo ASD123 CAP..I#Iö";
         dump($slugify->slugify($title));
 
-        $article = $repo->findOneById(121);
+        $article = $repo->findOneById(141);
         dump($article);
 
         return $this->render('home/index.html.twig', [

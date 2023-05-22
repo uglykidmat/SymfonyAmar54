@@ -23,13 +23,15 @@ class AppFixtures extends Fixture
             $intro = $faker->paragraph(2);
             $content = '<p>'.implode('</p><p>', $faker->paragraphs(5)).'</p>';
             $createdAt = $faker->dateTimeBetween('-2 months');
-            $slug = $slugify->slugify($title.time()."-".hash("sha1",$intro));
+            // $slug = $slugify->slugify($title.time()."-".hash("sha1",$intro));
 
             $article->setTitle($title);
             $article->setIntro($intro);
             $article->setContent($content);
             $article->setImage($image);
-            $article->setUrlSlug($slug);
+            //$article->setUrlSlug($slug);
+
+            $article->initSlug();
 
             //$articledate = new DateTimeImmutable();
             $article->setCreatedAt($createdAt);
