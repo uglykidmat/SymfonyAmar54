@@ -43,14 +43,12 @@ class ArticleRepository extends ServiceEntityRepository
      * Renvoie les dernieers articles
      * @return void
      */
-    public function findLastArticles(){
+    public function findLastArticles($nombre){
         return $this->createQueryBuilder('a')
-        //    ->andWhere('a.exampleField = :val')
-        //    ->setParameter('val', $value)
-        //    ->orderBy('a.id', 'ASC')
-        //    ->setMaxResults(10)
-           ->getQuery()
-           ->getResult()
+            ->orderBy('a.createdAt', 'DESC')   
+            ->setMaxResults($nombre)
+            ->getQuery()
+            ->getResult()
        ;
     }
 //    /**
