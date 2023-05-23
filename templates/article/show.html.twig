@@ -1,0 +1,14 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block title %}{{article.title}}{% endblock %}
+
+{% block body %}
+<h1 class="mt-4">{{article.title}}</h1><br/>
+
+<p>{{article.intro}}</p>
+<img height="300px" width="300px" class="mx-auto border border-success" src="{{article.image}}" alt="Card image">
+
+{{article.content | raw}}
+
+<p>Créé le : {{article.createdAt | date("d/m/Y à H:i ")}}</p>
+{% endblock %}

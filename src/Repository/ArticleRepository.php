@@ -45,8 +45,21 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findLastArticles($nombre){
         return $this->createQueryBuilder('a')
-            ->orderBy('a.createdAt', 'DESC')   
+            ->orderBy('a.createdAt', 'ASC')   
             ->setMaxResults($nombre)
+            ->getQuery()
+            ->getResult()
+       ;
+    }
+
+    /**
+     * Renvoie les dernieers articles
+     * @return void
+     */
+    public function findOneByUrlSlug($url_slug){
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.url_slug = :value')
+            ->setParameter('value', $url_slug)  
             ->getQuery()
             ->getResult()
        ;
