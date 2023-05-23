@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PostUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
-use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping\PostPersist;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
@@ -48,12 +48,12 @@ class Article
     }
 
     //COMMENT ON PEUT AVOIR L'ID ARGARGARG
-    #[PostPersist]
-    #[PostUpdate]
+    #[PrePersist]
+    #[PreUpdate]
     public function initSlug(){
         if (empty($this->url_slug)){
             $slugify = new Slugify();
-            $this->url_slug = $slugify->slugify($this->getId()."-".$this->getTitle().time()."-".hash("sha1",$this->getIntro()));
+            $this->url_slug = $slugify->slugify($this->getTitle().time()."-".hash("sha1",$this->getIntro()));
         }
     }
 

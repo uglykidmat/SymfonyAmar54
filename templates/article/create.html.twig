@@ -2,7 +2,14 @@
 {% block title %}Nouvel article !{% endblock %}
 
 {% block body %}
-<h1>FORM ici</h1><br/>
+<h1 class="mt-2 mx-auto">Création d'un nouvel article</h1><br/>
 <p>Publier un nouvel article :</p><br/>
-{{form (form)}}
+
+<div class="alert alert-danger">
+    {{form_errors(form)}}
+</div>
+<div class="col-8 m-auto">
+    {{form (form)}}
+</div>
+
 {% endblock %}
