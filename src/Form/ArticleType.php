@@ -6,6 +6,7 @@ use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ArticleType extends AbstractType
 {
@@ -16,6 +17,7 @@ class ArticleType extends AbstractType
             ->add('intro')
             ->add('content')
             ->add('image')
+            ->add('save', SubmitType::class)
         ;
     }
 
