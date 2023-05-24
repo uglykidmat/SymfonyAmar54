@@ -1,4 +1,10 @@
 {% extends 'partials/base.html.twig' %}
+{% set testadminuser = {
+    "firstname" : "Admin",
+    "lastname" : "Adminsson",
+    "role" : "admin",
+    "isConnected" : true
+} %}
 
 {% block title %}{{article.title}}{% endblock %}
 
@@ -11,4 +17,7 @@
 {{article.content | raw}}
 
 <p>Créé le : {{article.createdAt | date("d/m/Y à H:i ")}}</p>
+{% if testadminuser.isConnected and testadminuser.role == "admin" %}
+    <a href="{{path("articles_edit",{id:article.id})}}" class="btn btn-primary rounded">Modifier</a>
+{% endif %}
 {% endblock %}

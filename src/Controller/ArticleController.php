@@ -65,5 +65,31 @@ class ArticleController extends AbstractController
             "article" => $article
         ]);
     }
-}
 
+    #[Route('/articles/{id}/edit', name: 'articles_edit')]
+    public function update($id, ArticleRepository $repo, EntityManagerInterface $manager,Request $request):Response
+    {
+        $article = $repo->findOneById($id);
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            $this->addFlash("success","L'article <strong>{$article->getTitle()}</strong> a bien été créé !");
+
+            return $this->redirectToRoute("article_show",[
+                "id" => $article->getId()
+            ]);
+        }
+        else if ($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash("danger","L'article <strong>{$article->getTitle()}</strong> n'a pas pu être créé !");
+        }
+
+        return $this->render('article/edit.html.twig', [
+            "articles" => $article,
+            'form' => $form->createView()
+            // 'controller_name' => 'ArticleController',
+        ]);
+    }
+}
