@@ -3,7 +3,7 @@
 namespace App\Form;
 
 
-use App\Entity\Article;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,37 +12,42 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ArticleType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
+            ->add('firstname', TextType::class, [
                 'required' => true,
                 'constraints' => [new Length(['min' => 5])],
-                'label' => "Le titre de l'article",
-                'attr' => ["placeholder" => "Titre..."] 
+                'label' => "Prénom",
+                'attr' => ["placeholder" => "Prénom..."] 
             ])
-            ->add('intro', TextType::class, [
+            ->add('lastname', TextType::class, [
                 'required' => true,
                 'constraints' => [new Length(['min' => 5])],
-                'label' => "L'introduction de l'article",
-                'attr' => ["placeholder" => "Intro..."]
+                'label' => "Nom",
+                'attr' => ["placeholder" => "Nom..."]
             ])
-            ->add('content', TextareaType::class, [
+            ->add('email', TextType::class, [
                 'required' => true,
-                'constraints' => [new Length(['min' => 100])],
-                'label' => "Le contenu de l'article",
-                'attr' => ["placeholder" => "Contenu..."] 
+                'constraints' => [new Length(['min' => 5]),new Assert\Email()],
+                'label' => "eMail",
+                'attr' => ["placeholder" => "eMail..."] 
             ])
-            ->add('image', TextType::class, [
+            ->add('picture', TextType::class, [
                 'required' => true,
                 'constraints' => [new Length(['min' => 5]),new Assert\Url([
                     'protocols' => ['http', 'https'],'message' => 'L\'URL {{ value }} est pas top.'])],
                 'attr' => ["placeholder" => "https://..."]
+            ])
+            ->add('presentation', TextType::class, [
+                'required' => true,
+                'constraints' => [new Length(['min' => 5])],
+                'label' => "Présentation",
+                'attr' => ["placeholder" => "Présentation..."]
             ])
             ->add('save', SubmitType::class)
         ;
@@ -51,7 +56,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => User::class,
         ]);
     }
 
@@ -59,11 +64,8 @@ class ArticleType extends AbstractType
 
     public function validateForm(ValidatorInterface $validator)
     {
-        $article = new Article();
-
-        // ... do something to the $artile object
-
-        $errors = $validator->validate($article);
+        $user = new User();
+        $errors = $validator->validate($user);
 
         if (count($errors) > 0) {
             /*
@@ -76,6 +78,6 @@ class ArticleType extends AbstractType
             return new Response($errorsString);
         }
 
-        return new Response('The article is valid! Yes!');
+        return new Response("L'utilisateur est valide !");
     }
 }
