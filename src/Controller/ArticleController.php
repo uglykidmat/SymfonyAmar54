@@ -67,7 +67,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/articles/{id}/edit', name: 'articles_edit')]
-    public function update($id, ArticleRepository $repo, EntityManagerInterface $manager,Request $request):Response
+    public function update($id, ArticleRepository $repo, EntityManagerInterface $manager, Request $request):Response
     {
         $article = $repo->findOneById($id);
         $form = $this->createForm(ArticleType::class, $article);
@@ -75,21 +75,30 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
-
-            $this->addFlash("success","L'article <strong>{$article->getTitle()}</strong> a bien été créé !");
-
+            $this->addFlash("warning","L'article <strong>{$article->getTitle()}</strong> a bien été modifié !");
             return $this->redirectToRoute("article_show",[
                 "id" => $article->getId()
             ]);
         }
         else if ($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash("danger","L'article <strong>{$article->getTitle()}</strong> n'a pas pu être créé !");
+            $this->addFlash("danger","L'article <strong>{$article->getTitle()}</strong> n'a pas pu être modifié !");
         }
 
         return $this->render('article/edit.html.twig', [
             "articles" => $article,
             'form' => $form->createView()
             // 'controller_name' => 'ArticleController',
+        ]);
+    }
+
+    #[Route('/articles/{id}/delete', name: 'articles_delete')]
+    public function delete($id, ArticleRepository $repo, EntityManagerInterface $manager){
+        $article = $repo->findOneById($id);
+        $manager->remove($article);
+        $manager->flush();
+
+        return $this->redirectToRoute("articles_index",[
+            $this->addFlash("warning","L'article a bien été supprimé... RIP")
         ]);
     }
 }
