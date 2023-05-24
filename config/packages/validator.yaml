@@ -11,3 +11,20 @@ when@test:
     framework:
         validation:
             not_compromised_password: false
+
+
+# App\Entity\Article:
+#     properties:
+#         title:
+#             - NotBlank:
+#                 message: Ne doit pas être vide !
+#         intro:
+#             - NotBlank:
+#                 message: Ne doit pas être vide !
+#         content:
+#             - NotBlank:
+#                 message: Ne doit pas être vide !
+#         image:
+#             - NotBlank: ~
+#             - Url:
+#                 message: L'URL doit être valide.

@@ -28,6 +28,7 @@ class ArticleController extends AbstractController
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
+        // $form->validateForm();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($article);
@@ -41,6 +42,7 @@ class ArticleController extends AbstractController
         }
         else if ($form->isSubmitted() && !$form->isValid()){
             $this->addFlash("danger","L'article <strong>{$article->getTitle()}</strong> n'a pas pu être créé !");
+            
         }
 
         // dump($article);
