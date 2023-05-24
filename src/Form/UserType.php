@@ -2,16 +2,18 @@
 
 namespace App\Form;
 
-
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserType extends AbstractType
@@ -37,19 +39,27 @@ class UserType extends AbstractType
                 'label' => "eMail",
                 'attr' => ["placeholder" => "eMail..."] 
             ])
+            ->add('hash', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
+            ])
             ->add('picture', TextType::class, [
                 'required' => true,
                 'constraints' => [new Length(['min' => 5]),new Assert\Url([
                     'protocols' => ['http', 'https'],'message' => 'L\'URL {{ value }} est pas top.'])],
                 'attr' => ["placeholder" => "https://..."]
             ])
-            ->add('presentation', TextType::class, [
+            ->add('presentation', TextareaType::class, [
                 'required' => true,
                 'constraints' => [new Length(['min' => 5])],
                 'label' => "Présentation",
                 'attr' => ["placeholder" => "Présentation..."]
             ])
-            ->add('save', SubmitType::class)
+            ->add('Creer', SubmitType::class)
         ;
     }
 

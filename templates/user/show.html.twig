@@ -1,0 +1,24 @@
+{% extends 'partials/base.html.twig' %}
+{% set testadminuser = {
+    "firstname" : "Admin",
+    "lastname" : "Adminsson",
+    "role" : "admin",
+    "isConnected" : true
+} %}
+
+{% block title %}{{user.firstname}} {{user.lastname}}{% endblock %}
+
+{% block body %}
+<h1 class="mt-4">{{user.firstname}} {{user.lastname}}</h1><br/>
+
+<img height="300px" width="300px" class="mx-auto border border-success" src="{{user.picture}}" alt="Card image"><br/>
+
+<p>{{user.presentation}}</p>
+<p>{{user.email}}</p>
+
+<br/>
+{# {% if testadminuser.isConnected and testadminuser.role == "admin" %}
+    <a href="{{path("articles_edit",{id:article.id})}}" class="btn btn-warning rounded">Modifier</a>
+    <a href="{{path("articles_delete",{id:article.id})}}" onclick="return confirm('TU ES SÛR ???');" class="btn btn-danger rounded">Supprimer</a>
+{% endif %} #}
+{% endblock %}

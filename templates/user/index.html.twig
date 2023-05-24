@@ -3,10 +3,12 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-
-
-<div class="container">
-    USER
-    {# {{user.firstname}} #}
+<h1>Les utilisateurs du site ! ✅</h1>
+<br/>
+<a class="btn btn-primary" href="{{path("user_create")}}">Nouvel utilisateur</a>
+<div class="row flex-lg-row flex-xl-row flex-column">
+   {% for user in users | reverse %}
+       {% include "partials/card.user.html.twig" %}   
+   {% endfor %}
 </div>
 {% endblock %}

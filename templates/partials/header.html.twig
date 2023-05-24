@@ -45,16 +45,20 @@
                         {% if testadminuser.isConnected %}
                         <div class="dropdown-divider"></div>
                         
-                            <a class="dropdown-item" href="#">Espace admin</a>
+                            <a class="dropdown-item" href="{{path("user_index")}}">Espace admin</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Log out </a>
                     </div>
                 </li>
+                <li><a class="nav-link" href="{{path("user_index")}}"><i class="fa-sharp fa-solid fa-users"></i>
+                    Utilisateurs</a></li>
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa-sharp fa-solid fa-user"></i> Login/Signup</a>
                 {% endif %}
+
+                
             </ul>
         </div>
     </nav>

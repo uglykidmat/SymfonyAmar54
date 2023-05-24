@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Entity;
-
-use App\Repository\UserRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[HasLifecycleCallbacks]
 class User
 {
     #[ORM\Id]
@@ -33,6 +37,16 @@ class User
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    #[PrePersist]
+    #[PreUpdate]
+    public function initSlug(){
+        $fullname = $this->getFirstname().$this->getLastname();
+        if (empty($this->slug)){
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($fullname.time()."-".hash("sha1",$this->getFirstname()));
+        }
+    }
 
     public function getId(): ?int
     {

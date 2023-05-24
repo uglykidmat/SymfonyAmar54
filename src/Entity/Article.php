@@ -5,9 +5,7 @@ use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PreUpdate;
-use Doctrine\ORM\Mapping\PostUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
-use Doctrine\ORM\Mapping\PostPersist;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 

@@ -17,7 +17,7 @@ class UserController extends AbstractController
     public function index(UserRepository $repo): Response
     {
         return $this->render('user/index.html.twig', [
-            "user" => $repo->findAll()
+            "users" => $repo->findAll()
             // 'controller_name' => 'ArticleController',
         ]);
     }
@@ -51,5 +51,22 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/user/{id}', name: 'user_show')]
+    public function show($id, UserRepository $repo)
+    {
+        $user = $repo->findOneById($id);
+        return $this->render('user/show.html.twig', [
+            "user" => $user
+        ]);
+    }
 
+    #[Route('/user/{id}/delete', name: 'user_delete')]
+    public function delete($id, UserRepository $repo, EntityManagerInterface $manager){
+        $user = $repo->findOneById($id);
+        $manager->remove($user);
+        $manager->flush();
+        return $this->redirectToRoute("user_index",[
+            $this->addFlash("warning","L'utilisateur a bien été supprimé... RIP")
+        ]);
+    }
 }
