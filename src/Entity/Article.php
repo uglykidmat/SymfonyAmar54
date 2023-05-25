@@ -36,6 +36,9 @@ class Article
     #[ORM\Column(length: 255)]
     private ?string $url_slug = null;
 
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     #[PrePersist]
     #[PreUpdate]
@@ -128,6 +131,18 @@ class Article
     public function setUrlSlug(string $url_slug): self
     {
         $this->url_slug = $url_slug;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

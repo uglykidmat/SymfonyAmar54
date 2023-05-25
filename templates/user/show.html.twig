@@ -15,6 +15,29 @@
 
 <p>{{user.presentation}}</p>
 <p>{{user.email}}</p>
+{# <p>Cet utilisateur a publié {{user.articles | length}} articles !</p> #}
+
+{% if user.articles | length > 0 %}
+
+				<h2 class="my-5">Mes articles en lignes</h2>
+
+				<div class="row flex-lg-row flex-xl-row flex-column border bg-light">
+					{% for article in user.articles %}
+						{% include "partials/card.article.html.twig" %}
+					{% endfor %}
+				</div>
+
+			{% else %}
+
+				<div class="border text-center bg-light my-5">
+					<h2 class="my-5">Vous n'avez pas encore publié d'article !</h2>
+					<a class="nav-link text-center h2" href="{{ path('articles_create') }}">
+							<i class="fa fa-pen fa-1.5x"></i>
+							Ecrire un article
+					</a>
+				</div>
+
+		{% endif %}
 
 <br/>
 {# {% if testadminuser.isConnected and testadminuser.role == "admin" %}
