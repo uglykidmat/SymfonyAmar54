@@ -9,10 +9,11 @@ use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[HasLifecycleCallbacks]
-class User
+class User implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -42,6 +43,8 @@ class User
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
     private Collection $articles;
+
+    private ?string $fullname = null;
 
     public function __construct()
     {
@@ -175,5 +178,36 @@ class User
         }
 
         return $this;
+    }
+
+    public function setFullname(string $firstname, string $lastname ): self
+    {
+        $this->fullname = $firstname.' '.$lastname;
+
+        return $this;
+    }
+
+    public function getFullname(): ?string
+    {
+        return $this->fullname;
+    }
+
+    public function getRoles(){
+        return ["ROLE_USER"];
+    }
+    public function getPassword(){
+        return $this->hash;
+    }
+    public function getSalt(){
+        return null;
+    }
+    public function eraseCredentials(){
+        return $this->email;
+    }
+    public function getUsername(){
+
+    }
+    public function getUserIdentifier(){
+        return $this->email;
     }
 }

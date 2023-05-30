@@ -6,9 +6,16 @@ use App\Entity\User;
 use App\Entity\Article;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
+    public function __construct(UserPasswordHasherInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create("fr_FR");
@@ -28,7 +35,7 @@ class AppFixtures extends Fixture
                 ->setEmail($faker->email)
                 ->setPicture($picture)
                 ->setPresentation($faker->sentence())
-                ->setHash("password");
+                ->setHash($this->encoder->hashPassword($user, "password"));
             
             //COMMENT ON PEUT AVOIR L'ID ARGARGARG
             $manager->persist($user);

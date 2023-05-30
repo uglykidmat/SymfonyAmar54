@@ -69,4 +69,12 @@ class UserController extends AbstractController
             $this->addFlash("warning","L'utilisateur a bien été supprimé... RIP")
         ]);
     }
+
+    #[Route('/login', name: 'account_login')]
+    public function login()
+    {
+        return $this->render('account/login.html.twig', [
+            
+        ]);
+    }
 }
