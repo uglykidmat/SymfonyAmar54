@@ -51,9 +51,13 @@ class User implements UserInterface
 
     private ?string $fullname = null;
 
+    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users')]
+    private Collection $roles;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     #[PrePersist]
@@ -214,5 +218,24 @@ class User implements UserInterface
     }
     public function getUserIdentifier(){
         return $this->email;
+    }
+
+    public function addUserRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+            $role->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $role): self
+    {
+        if ($this->roles->removeElement($role)) {
+            $role->removeUser($this);
+        }
+
+        return $this;
     }
 }

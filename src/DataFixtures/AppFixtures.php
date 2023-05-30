@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 use Faker\Factory;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Article;
 use Doctrine\Persistence\ObjectManager;
@@ -22,6 +23,24 @@ class AppFixtures extends Fixture
         $genres = ['male','female'];
         $users = [];
 
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $userRole = new Role();
+        $userRole->setTitle('ROLE_USER');
+        $manager->persist($userRole);
+
+        $adminUser = new User();
+        $adminUser->setFirstname("Root")
+                ->setLastname("Admin")
+                ->setEmail("overlord@hivemind.com")
+                ->setPicture("https://cdn001.tintin.com/public/tintin/img/characters/dupond-et-dupont/dupond-et-dupont.png")
+                ->setPresentation("No introduction needed.")
+                ->setHash($this->encoder->hashPassword($adminUser, "password"))
+                ->addUserRole($adminRole);
+        $manager->persist($adminUser);
+
         for ($i=1; $i <= 20 ; $i++) { 
         $user = new User();
             $genre = $faker->randomElement($genres);
@@ -35,7 +54,8 @@ class AppFixtures extends Fixture
                 ->setEmail($faker->email)
                 ->setPicture($picture)
                 ->setPresentation($faker->sentence())
-                ->setHash($this->encoder->hashPassword($user, "password"));
+                ->setHash($this->encoder->hashPassword($user, "password"))
+                ->addUserRole($userRole);   
             
             //COMMENT ON PEUT AVOIR L'ID ARGARGARG
             $manager->persist($user);
