@@ -45,11 +45,6 @@ class ArticleType extends AbstractType
                     'protocols' => ['http', 'https'],'message' => 'L\'URL {{ value }} est pas top.'])],
                 'attr' => ["placeholder" => "https://..."]
             ])
-            // ->add('author', EntityType::class, [
-            //     'required' => false,
-            //     'class' => User::class,
-            //     'choice_label' => 'name'
-            // ])
             ->add('Creer', SubmitType::class)
         ;
     }

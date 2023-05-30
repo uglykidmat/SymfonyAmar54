@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
@@ -76,9 +77,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/login', name: 'account_login')]
-    public function login()
+    public function login(AuthenticationUtils $utils): Response
     {
+        $error = $utils->getLastAuthenticationError();
+        $username = $utils->getLastUsername();
+        dump($error,$username);
         return $this->render('account/login.html.twig', [
+            "hasError" => $error !== null,
+            "username" => $username
         ]);
     }
 

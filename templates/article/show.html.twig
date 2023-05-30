@@ -13,11 +13,11 @@
 
 <p>{{article.intro}}</p>
 <img height="300px" width="300px" class="mx-auto border border-success" src="{{article.image}}" alt="Card image">
-
+<p>
 {{article.content | raw}}
-
+</p>
 <p>Créé le : {{article.createdAt | date("d/m/Y à H:i ")}}</p>
-{% if testadminuser.isConnected and testadminuser.role == "admin" %}
+{% if app.user and app.user == article.author %}
     <a href="{{path("articles_edit",{id:article.id})}}" class="btn btn-warning rounded">Modifier</a>
     <a href="{{path("articles_delete",{id:article.id})}}" onclick="return confirm('TU ES SÛR ???');" class="btn btn-danger rounded">Supprimer</a>
 {% endif %}

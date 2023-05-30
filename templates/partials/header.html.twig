@@ -42,13 +42,14 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{ path('user_show' , {'id': app.user.id } ) }}">Profil</a>
                         <a class="dropdown-item" href="#">Mes articles</a>
+                        <a class="dropdown-item" href="{{ path('articles_create' , {'id': app.user.id } ) }}">Nouvel article</a>
                         {% if testadminuser.isConnected %}
                         <div class="dropdown-divider"></div>
                         
                             <a class="dropdown-item" href="{{path("user_index")}}">Espace admin</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out </a>
+                        <a class="dropdown-item" href="{{path('account_logout')}}">Log out </a>
                     </div>
                 </li>
                 <li><a class="nav-link" href="{{path("user_index")}}"><i class="fa-sharp fa-solid fa-users"></i>

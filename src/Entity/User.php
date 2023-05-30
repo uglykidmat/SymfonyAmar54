@@ -10,9 +10,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[HasLifecycleCallbacks]
+#[UniqueEntity(
+    fields: ['email'],
+    message: 'Un compte avec cet email existe déjà !'
+)]
 class User implements UserInterface
 {
     #[ORM\Id]
