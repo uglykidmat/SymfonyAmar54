@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
@@ -23,13 +24,17 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/new', name: 'user_create')]
-    public function create(Request $request, EntityManagerInterface $manager)
+    public function create(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $hash = $encoder->hashPassword($user, $user->getHash());
+            $user->setHash($hash);
+
             $manager->persist($user);
             $manager->flush();
 
@@ -74,7 +79,34 @@ class UserController extends AbstractController
     public function login()
     {
         return $this->render('account/login.html.twig', [
-            
         ]);
     }
+
+    #[Route('/loginsuccess', name: 'account_loginsuccess')]
+    public function loginsuccess()
+    {
+        return $this->render('account/loginsuccess.html.twig', [
+            $this->addFlash("success","Bien connecté !")
+        ]);
+    }
+
+
+    #[Route('/logout', name: 'account_logout')]
+    public function logout()
+    {
+        // return $this->render('account/logout.html.twig', [
+            
+        // ]);
+    }
+
+    // TODO
+    // #[Route('/user/{id}/edit', name: 'user_edit')]
+    // public function edit($id, UserRepository $repo, EntityManagerInterface $manager){
+    //     $user = $repo->findOneById($id);
+    //     $manager->remove($user);
+    //     $manager->flush();
+    //     return $this->redirectToRoute("user_index",[
+    //         $this->addFlash("warning","L'utilisateur a bien été supprimé... RIP")
+    //     ]);
+    // }
 }

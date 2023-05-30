@@ -2,7 +2,7 @@
     "firstname" : "Admin",
     "lastname" : "Adminsson",
     "role" : "admin",
-    "isConnected" : true
+    "isConnected" : false
 } %}
 
 {% set testnormaluser = {
@@ -27,20 +27,20 @@
                     <a class="nav-link" href="{{path("articles_index")}}"><i class="fa-sharp fa-solid fa-book"></i>
                         Articles</a>
                 </li>   
-                {% if testnormaluser.isConnected or testadminuser.isConnected %}
+                {% if app.user or testadminuser.isConnected %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false"><i class="fa-sharp fa-solid fa-user"></i>
 
-                        {% if testnormaluser.isConnected %}
-                            {{testnormaluser.firstname}} {{testnormaluser.lastname}}
+                        {% if app.user %}
+                            {{app.user.firstname}} {{app.user.lastname}}
                         {% elseif testadminuser.isConnected %}
                             {{testadminuser.firstname}} {{testadminuser.lastname}}
                         {% endif %}
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Profil</a>
+                        <a class="dropdown-item" href="{{ path('user_show' , {'id': app.user.id } ) }}">Profil</a>
                         <a class="dropdown-item" href="#">Mes articles</a>
                         {% if testadminuser.isConnected %}
                         <div class="dropdown-divider"></div>
@@ -55,10 +55,10 @@
                     Utilisateurs</a></li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-sharp fa-solid fa-user"></i> Login/Signup</a>
+                    <a class="nav-link" href="{{path("account_login")}}"><i class="fa-sharp fa-solid fa-user"></i>Login</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path("user_create")}}"><i class="fa-sharp fa-solid fa-user"></i>Signup</a></li>
                 {% endif %}
-
-                
             </ul>
         </div>
     </nav>
