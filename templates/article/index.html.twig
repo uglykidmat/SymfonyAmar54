@@ -3,7 +3,7 @@
 {% block title %}Hello ArticleController!{% endblock %}
 
 {% block body %}
-<h1>Nos articles ! ✅</h1>
+<h1 class = "mt-3">Nos articles ! ✅</h1>
 <div class="row flex-lg-row flex-xl-row flex-column">
    {% for article in articles | reverse %}
        {% include "partials/card.article.html.twig" %}   
