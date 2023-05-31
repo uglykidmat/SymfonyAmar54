@@ -7,6 +7,7 @@ use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -69,9 +70,10 @@ class ArticleController extends AbstractController
             "article" => $article
         ]);
     }
-
+    
     #[Route('/articles/{id}/edit', name: 'articles_edit')]
-    public function update($id, ArticleRepository $repo, EntityManagerInterface $manager, Request $request):Response
+    #[Security("is_granted('ROLE_USER') and user === article.getAuthor()")]
+    public function update($id, Article $article, ArticleRepository $repo, EntityManagerInterface $manager, Request $request):Response
     {
         $article = $repo->findOneById($id);
         $form = $this->createForm(ArticleType::class, $article);

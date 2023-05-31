@@ -5,8 +5,10 @@ use Faker\Factory;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Article;
+use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\Query\Expr\Math;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -63,6 +65,24 @@ class AppFixtures extends Fixture
             $user->initSlug();
         }
 
+        for ($i=1; $i <= 4 ; $i++) { 
+            $category = new Category();
+            $categorytitle = "Catégorie ".$i;
+            $categorydescription = $faker->paragraph(2);
+            $idsarticles = "1,2,3";
+            
+            // $bool=rand(0,1);
+            // if($bool > 0 ){
+            //     $idsarticles = $
+            // }
+            // else {
+            //     $idsarticles = null;
+            // }
+            $category->setCategorytitle($categorytitle)->setCategorydescription($categorydescription)->setIdsarticles($idsarticles);
+            
+            $manager->persist($category);
+        }
+
         for ($i=1; $i <= 20 ; $i++) { 
             $article = new Article();
             $title = $faker->sentence(2); // pour titre
@@ -77,6 +97,12 @@ class AppFixtures extends Fixture
             $article->setContent($content);
             $article->setImage($image);
             $article->setAuthor($author);
+            if($i < 5){
+                $article->setCategory($category);
+            }
+            elseif ($i < 18){
+                $article->setCategory($category);
+            }
 
             //COMMENT ON PEUT AVOIR L'ID ARGARGARG
             $manager->persist($article);

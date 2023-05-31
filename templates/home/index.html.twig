@@ -19,10 +19,6 @@
         </div>
     </div>
 </div>
-{{dump(app.user)}}
-{# {{dump(app.user.userRoles.snapshot[0].title)}} #}
-{# app.user.userRoles.snapshot[0].title == "ROLE_ADMIN" #}
-
 <div class="d-flex gap-2 align-content-between" id="cards-container">
     {% for article in articles %}
     {% include "partials/card.article.html.twig" %}

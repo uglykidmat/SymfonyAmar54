@@ -1,0 +1,13 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block title %}Hello CatégoriesController!{% endblock %}
+
+{% block body %}
+<h1 class = "mt-3">Nos catégories ! ✅</h1>
+<div class="row flex-lg-row flex-xl-row flex-column">
+   {% for category in categories | reverse %}
+       {% include "partials/card.category.html.twig" %}   
+   {% endfor %}
+   TODO
+</div>
+{% endblock %}
