@@ -9,7 +9,7 @@
     "firstname" : "User",
     "lastname" : "Userson",
     "role" : "user",
-    "isConnected" : true
+    "isConnected" : false
 } %}
 
 <header>
@@ -27,44 +27,50 @@
                     <a class="nav-link" href="{{path("articles_index")}}"><i class="fa-sharp fa-solid fa-book"></i>
                         Articles</a>
                 </li>   
-                {% if testnormaluser.isConnected or testadminuser.isConnected %}
+                {% if app.user or testadminuser.isConnected %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false"><i class="fa-sharp fa-solid fa-user"></i>
 
-                        {% if testnormaluser.isConnected %}
-                            {{testnormaluser.firstname}} {{testnormaluser.lastname}}
+                        {% if app.user %}
+                            {{app.user.firstname}} {{app.user.lastname}}
                         {% elseif testadminuser.isConnected %}
                             {{testadminuser.firstname}} {{testadminuser.lastname}}
                         {% endif %}
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Profil</a>
+                        <a class="dropdown-item" href="{{ path('user_show' , {'id': app.user.id } ) }}">Profil</a>
                         <a class="dropdown-item" href="#">Mes articles</a>
+                        <a class="dropdown-item" href="{{ path('articles_create' , {'id': app.user.id } ) }}">Nouvel article</a>
                         {% if testadminuser.isConnected %}
                         <div class="dropdown-divider"></div>
                         
-                            <a class="dropdown-item" href="#">Espace admin</a>
+                            <a class="dropdown-item" href="{{path("user_index")}}">Espace admin</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out </a>
+                        <a class="dropdown-item" href="{{path('account_logout')}}">Log out </a>
                     </div>
                 </li>
+
+                <li><a class="nav-link" href="{{path("user_index")}}"><i class="fa-sharp fa-solid fa-users"></i>Utilisateurs</a></li>
+
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-sharp fa-solid fa-user"></i> Login/Signup</a>
+                    <a class="nav-link" href="{{path("account_login")}}"><i class="fa-sharp fa-solid fa-user"></i>Login</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path("user_create")}}"><i class="fa-sharp fa-solid fa-user"></i>Signup</a></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
 </header>
-{{dump(app.flashes)}}
+{# {{dump(app.flashes)}} #}
     {% for label,messages in app.flashes %}
-        <div class="container text-center my-5">
+        <div class="container text-center my-3 w-50">
             <div class="alert alert-{{label}}">
                 {% for message in messages %}
-                <p>{{message|raw}}</p>  
+                {{message|raw}}  
                 {% endfor %}
             </div>
         </div>

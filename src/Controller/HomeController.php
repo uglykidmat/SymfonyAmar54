@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 use App\Repository\ArticleRepository;
-use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 

@@ -1,0 +1,64 @@
+{% extends 'partials/base.html.twig' %}
+{% set testadminuser = {
+    "firstname" : "Admin",
+    "lastname" : "Adminsson",
+    "role" : "admin",
+    "isConnected" : true
+} %}
+
+{% block title %}{{user.firstname}} {{user.lastname}}{% endblock %}
+
+{% block body %}
+<h1 class="mt-4">{{user.firstname}} {{user.lastname}}</h1><br/>
+
+{% if user is same as app.user %}
+	<div>
+		<a href="{{path('user_show' , {'id': user.id } )}}" class="btn btn-info mx-2">
+			Modifier mon profil
+			<i class="fa fa-pen"></i>
+		</a>
+		<form class="d-inline" action="{{ path('user_delete' , {'id': user.id } ) }}" 
+						onsubmit="return confirm('Etes vous sur de vouloir supprimer ?');">
+			<button class="btn btn-danger mx-2">Supprimer mon profil
+				<i class="fa fa-trash"></i>
+			</button>
+		</form>
+	</div>
+{% endif %}
+
+
+<br/>
+<img height="300px" width="300px" class="mx-auto border border-success" src="{{user.picture}}" alt="Card image"><br/>
+
+<p>{{user.presentation}}</p>
+<p>{{user.email}}</p>
+{# <p>Cet utilisateur a publié {{user.articles | length}} articles !</p> #}
+
+{% if user.articles | length > 0 %}
+
+				<h2 class="my-5">Mes articles en lignes</h2>
+
+				<div class="row flex-lg-row flex-xl-row flex-column border bg-light">
+					{% for article in user.articles %}
+						{% include "partials/card.article.html.twig" %}
+					{% endfor %}
+				</div>
+
+			{% else %}
+
+				<div class="border text-center bg-light my-5">
+					<h4 class="my-5">Vous n'avez pas encore publié d'article !</h4>
+					<a class="nav-link text-center h5" href="{{ path('articles_create') }}">
+							<i class="fa fa-pen fa-1.5x"></i>
+							Ecrire un article
+					</a>
+				</div>
+
+		{% endif %}
+
+<br/>
+{# {% if testadminuser.isConnected and testadminuser.role == "admin" %}
+    <a href="{{path("articles_edit",{id:article.id})}}" class="btn btn-warning rounded">Modifier</a>
+    <a href="{{path("articles_delete",{id:article.id})}}" onclick="return confirm('TU ES SÛR ???');" class="btn btn-danger rounded">Supprimer</a>
+{% endif %} #}
+{% endblock %}

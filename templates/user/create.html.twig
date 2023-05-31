@@ -1,0 +1,12 @@
+{% extends 'partials/base.html.twig' %}
+{% block title %}Nouvel utilisateur !{% endblock %}
+
+{% block body %}
+<h1 class="mt-2 mx-auto">Création d'un nouvel utilisateur</h1><br/>
+<p>Informations de l'utilisateur:</p><br/>
+
+<div class="col-8 m-auto">
+    {{form (form)}}
+</div>
+
+{% endblock %}

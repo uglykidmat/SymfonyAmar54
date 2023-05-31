@@ -1,0 +1,12 @@
+{% extends 'partials/base.html.twig' %}
+{% block title %}Édition de l'article{% endblock %}
+
+{% block body %}
+<h1 class="mt-2 mx-auto">Édition d'un article</h1><br/>
+<p>Modifiez ci-dessous :</p><br/>
+
+<div class="col-8 m-auto">
+    {{form (form)}}
+</div>
+
+{% endblock %}

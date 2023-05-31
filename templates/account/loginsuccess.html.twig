@@ -1,0 +1,18 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block title %}Hello User Login !{% endblock %}
+
+{% block body %}
+<h1>Login OK ! ✅</h1>
+<div class="row flex-lg-row flex-xl-row flex-column">
+    {% for label,messages in app.flashes %}
+    <div class="text-center my-5">
+        <div class="alert alert-{{label}}">
+            {% for message in messages %}
+            <p>{{message|raw}}</p>  
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
