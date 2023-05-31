@@ -40,9 +40,10 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category): Response
+    #[Route('/{id}', name: 'app_category_show', methods: ['GET', 'POST'])]
+    public function show($id, Category $category, CategoryRepository $repo): Response
     {
+        $category = $repo->findOneById($id);
         return $this->render('category/show.html.twig', [
             'category' => $category,
         ]);

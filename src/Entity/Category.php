@@ -21,8 +21,8 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $categorydescription = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $idsarticles = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $idsarticles = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Article::class)]
     private Collection $articles;

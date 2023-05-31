@@ -9,10 +9,13 @@
           <div class="my-3"> écrit par <br/>             
               <a href="{{path("user_show",{id:article.author.id})}}" class="card-link">{{article.author.firstname}} {{article.author.lastname}}</a>
           </div>
+          <div class="my-1"> dans la catégorie <br/>             
+            <a href="{{path("app_category_show",{id:article.category.id})}}" class="card-link">{{article.category.categorytitle}}</a>
+        </div>
         </div>
         <div class="card-footer text-muted">
-          {{article.createdAt | date("d/m/Y à H:i ")}}
+          le {{article.createdAt | date("d/m/Y à H:i ")}}
         </div>
     </div>
-    {# {{ dump(article) }} #}
+    {{ dump(article) }} 
 </div>

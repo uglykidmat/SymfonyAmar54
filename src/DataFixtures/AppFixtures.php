@@ -43,6 +43,8 @@ class AppFixtures extends Fixture
                 ->addUserRole($adminRole);
         $manager->persist($adminUser);
 
+        
+
         for ($i=1; $i <= 20 ; $i++) { 
         $user = new User();
             $genre = $faker->randomElement($genres);
@@ -68,8 +70,8 @@ class AppFixtures extends Fixture
         for ($i=1; $i <= 4 ; $i++) { 
             $category = new Category();
             $categorytitle = "Catégorie ".$i;
-            $categorydescription = $faker->paragraph(2);
-            $idsarticles = "1,2,3";
+            $categorydescription = $faker->paragraph(3);
+            $idsarticles = $faker->numberBetween(101, 120);
             
             // $bool=rand(0,1);
             // if($bool > 0 ){
@@ -97,12 +99,13 @@ class AppFixtures extends Fixture
             $article->setContent($content);
             $article->setImage($image);
             $article->setAuthor($author);
-            if($i < 5){
-                $article->setCategory($category);
-            }
-            elseif ($i < 18){
-                $article->setCategory($category);
-            }
+            $article->setCategory($category);
+            // if($i < 5){
+            //     $article->setCategory($category);
+            // }
+            // elseif ($i < 18){
+            //     $article->setCategory($category);
+            // }
 
             //COMMENT ON PEUT AVOIR L'ID ARGARGARG
             $manager->persist($article);
